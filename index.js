@@ -20,7 +20,17 @@ server.get('/api/users', (req, res) => {
 })
 
 server.get('/api/users/:id', (req, res) => {
-    console.log('cjdhcdjv');
+    const { id } =req.params;
+    User.findById(Number(id))
+    .then(data => {
+       if(data.length === 0 ) {
+           res.status(404).json({ message: 'users  id not found' })
+       }
+        res.status(200).json(data);
+    })
+    .catch(error => {
+        res.status(500).json({ error: "The users information could not be retrieved." });
+    })
 })
 
 server.post('/api/users', (req, res) => {
