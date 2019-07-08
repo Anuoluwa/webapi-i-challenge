@@ -23,8 +23,8 @@ server.get('/api/users/:id', (req, res) => {
     const { id } =req.params;
     User.findById(Number(id))
     .then(data => {
-       if(Object.keys(data).length === 0 ) {
-           return res.status(404).json({ message: 'users  id not found' })
+       if(typeof data === 'undefined' ) {
+           return res.status(404).json({ message: `user with ${id} not found` })
        }
         res.status(200).json(data);
     })
